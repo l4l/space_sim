@@ -1,0 +1,50 @@
+.idea
+
+# Created by .ignore support plugin (hsz.mobi)
+### C++ template
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+
+
+### Linux template
+*~
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+
+### Autotools template
+# http://www.gnu.org/software/automake
+
+Makefile.in
+
+
+### Windows template
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
