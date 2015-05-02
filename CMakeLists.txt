@@ -15,7 +15,8 @@ include_directories(${IO_DIR})
 include_directories({PHYS_DIR})
 include_directories(${APP_DIR})
 
-set(SRCS src/sim/main.cpp)
+FILE(GLOB SRCS src/sim/*.cpp
+              src/sim/*.h)
 
 add_executable(SpaceSim ${SRCS})
 
