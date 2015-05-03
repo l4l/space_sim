@@ -2,36 +2,37 @@
 #include "math.h"
 
 Coordinate::Coordinate() :
-        Coordinate(0, 0) {}
+        Coordinate(0, 0, 0) {}
 
 Coordinate::Coordinate(const Coordinate &coord) :
-        Coordinate(coord.getX(), coord.getY()) {}
+        Coordinate(coord.getX(),
+                   coord.getY(),
+                   coord.getZ()) {}
 
-Coordinate::Coordinate(double x, double y) :
-        x(x), y(y) {}
+Coordinate::Coordinate(double x, double y, double z) :
+        x(x), y(y), z(z) {}
 
-Coordinate::Coordinate(const Coordinate c, double r, double x) :
-        x(x), y(c.y + sqrt(r*r-(x - c.x)*(x - c.x))) {}
-
-void Coordinate::move(double dx, double dy) {
+void Coordinate::move(double dx, double dy, double dz) {
     x += dx;
     y += dy;
+    z += dz;
 }
 
 void Coordinate::invert() {
     x *= -1;
     y *= -1;
+    z *= -1;
 }
 
-inline static double distance(const double x0, const double y0,
-                              const double x1, const double y1) {
-    return sqrt(SQR(x0-x1) + SQR(y0-y1));
+inline static double distance(const double x0, const double y0,  const double z0,
+                              const double x1, const double y1, const double z1) {
+    return sqrt(SQR(x0-x1) + SQR(y0-y1) + SQR(z0-z1));
 }
 
 double Coordinate::getDistance() const {
-    return distance(x, y, 0, 0);
+    return distance(x, y, z, 0, 0, 0);
 }
 
 double Coordinate::getDistance(const Coordinate coord) const {
-    return distance(x, y, coord.x, coord.y);
+    return distance(x, y, z, coord.x, coord.y, coord.z);
 }

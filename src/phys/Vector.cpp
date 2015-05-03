@@ -1,24 +1,29 @@
 #include "Vector.h"
 
-phys::Vector::Vector() : Vector(0, 0) {}
+phys::Vector::Vector() : Vector(0, 0, 0) {}
 
-phys::Vector::Vector(double x, double y) : Vector(Coordinate(x, y)) {}
+phys::Vector::Vector(double x, double y, double z) :
+        Vector(Coordinate(x, y, z)) {}
 
-phys::Vector::Vector(const Coordinate &coordinate) : end(coordinate) {}
+phys::Vector::Vector(const Coordinate &coordinate) :
+        end(coordinate) {}
 
 phys::Vector phys::Vector::operator+(const phys::Vector &vector) const {
     return phys::Vector(this->end.getX() + vector.end.getX(),
-                        this->end.getY() + vector.end.getY());
+                        this->end.getY() + vector.end.getY(),
+                        this->end.getZ() + vector.end.getZ());
 }
 
 phys::Vector phys::Vector::operator*(double size) const {
     return phys::Vector(end.getX()*size,
-                        end.getY()*size);
+                        end.getY()*size,
+                        end.getZ()*size);
 }
 
 phys::Vector phys::Vector::operator/(double size) const {
     return phys::Vector(end.getX()/size,
-                        end.getY()/size);
+                        end.getY()/size,
+                        end.getZ()/size);
 }
 
 void phys::Vector::normalize() {

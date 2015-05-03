@@ -13,7 +13,7 @@ protected:
 public:
     Vector();
 
-    Vector(double, double);
+    Vector(double, double, double);
 
     Vector(const Coordinate&);
 

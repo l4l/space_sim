@@ -2,13 +2,12 @@
 #define SPACESIM_CORDS_H
 
 #define SQR(a) ((a)*(a))
-#define ABS(x) (x >= 0 ? x: -x)
-#define MIN(x, y) (x >= y ? y: x)
 
 class Coordinate {
 private:
     double x;
     double y;
+    double z;
 
 public:
 
@@ -16,17 +15,17 @@ public:
 
     Coordinate(const Coordinate&);
 
-    Coordinate(double, double);
+    Coordinate(double, double, double);
 
-    Coordinate(Coordinate, double, double);
-
-    void move(double, double);
+    void move(double, double, double);
 
     void invert();
 
     inline double getX() const { return x; }
 
     inline double getY() const { return y; }
+
+    inline double getZ() const { return z; }
 
     inline double getDistance() const;
 
@@ -35,6 +34,7 @@ public:
 };
 
 
-inline static double distance(double, double, double, double);
+inline static double distance(double, double, double,
+                              double, double, double);
 
 #endif //SPACESIM_CORDS_H

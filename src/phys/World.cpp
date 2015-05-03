@@ -2,6 +2,8 @@
 
 World::World(double dt) : dt(dt) {}
 
+World::~World() { objects.clear(); }
+
 void World::tick() {
 
     phys::Vector phi[objects.size()];
@@ -9,9 +11,6 @@ void World::tick() {
     for (int i = 0; i < objects.size(); ++i) {
 
         phys::Body b = objects[i].getBody();
-        phys::Vector vector = b.updateSpeed(dt) * dt;
-        objects[i].move(vector);
-
         const phys::Vector vec = phys::Vector(objects[i].getCoord());
 
         for (int j = 0; j < objects.size(); ++j) {
@@ -22,10 +21,11 @@ void World::tick() {
             Coordinate coord = objects[j].getCoord();
             coord.invert();
             phys::Vector v = vec + phys::Vector(coord);
+            v.normalize();
             double l = v.length();
 
-            //F=ma, F=GmM/R^2 => a=GM/R^2 + normalization
-            v = v * (GRAV_CONST * b.getMass()/l/l/l);
+            //F=ma, F=GmM/R^2 => a=GM/R^2
+            v = v * (GRAV_CONST * b.getMass()/SQR(l));
 
             phi[j] = phi[j] + v;
         }
@@ -33,20 +33,23 @@ void World::tick() {
 
     for (int i = 0; i < objects.size(); ++i) {
         phys::Body b = objects[i].getBody();
+        phys::Vector vector = b.updateSpeed(dt) * dt;
+        objects[i].move(vector);
         b.increaseAcceleration(phi[i]);
     }
 }
 
 void World::Object::move(phys::Vector vector) {
     move(vector.getEnd().getX(),
-         vector.getEnd().getY());
+         vector.getEnd().getY(),
+         vector.getEnd().getZ());
 }
 
-void World::Object::move(double dx, double dy) {
-    coord.move(dx, dy);
+void World::Object::move(double dx, double dy, double dz) {
+    coord.move(dx, dy, dz);
 }
 
-World::Object::Object(phys::Body *b, const Coordinate &c) :
+World::Object::Object(phys::Body b, const Coordinate &c) :
         body(b), coord(c) {}
 
 double World::Object::getDistance(World::Object object) const {

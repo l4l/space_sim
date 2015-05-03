@@ -10,17 +10,17 @@ class World {
 private:
     class Object {
     private:
-        phys::Body *body;
+        phys::Body body;
         Coordinate coord;
 
-        Object(phys::Body *b, const Coordinate &c);
+        Object(phys::Body b, const Coordinate &c);
 
         double getDistance(Object) const;
 
     public:
 
         const phys::Body getBody() const {
-            return *body;
+            return body;
         }
 
         const Coordinate getCoord() const {
@@ -29,14 +29,15 @@ private:
 
         void move(phys::Vector);
 
-        void move(double, double);
+        void move(double, double, double);
     };
 
     std::vector<Object> objects;
 
     double dt;
-
+public:
     World(double);
+    ~World();
 
     void tick();
 };
