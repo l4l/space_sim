@@ -7,9 +7,6 @@ namespace phys
 {
 
 class Vector {
-protected:
-    Coordinate end;
-
 public:
     Vector();
 
@@ -18,6 +15,8 @@ public:
     Vector(const Coordinate&);
 
     Vector operator+(const Vector&) const;
+
+    Vector operator-(const Vector&) const;
 
     Vector operator*(double) const;
 
@@ -30,6 +29,9 @@ public:
     const Coordinate getEnd() const {
         return end;
     }
+
+protected:
+    Coordinate end;
 };
 
 }

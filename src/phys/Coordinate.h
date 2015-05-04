@@ -4,13 +4,8 @@
 #define SQR(a) ((a)*(a))
 
 class Coordinate {
-private:
-    double x;
-    double y;
-    double z;
 
 public:
-
     Coordinate();
 
     Coordinate(const Coordinate&);
@@ -19,18 +14,20 @@ public:
 
     void move(double, double, double);
 
-    void invert();
+    double getX() const { return x; }
 
-    inline double getX() const { return x; }
+    double getY() const { return y; }
 
-    inline double getY() const { return y; }
+    double getZ() const { return z; }
 
-    inline double getZ() const { return z; }
+    double getDistance() const;
 
-    inline double getDistance() const;
+    double getDistance(Coordinate) const;
 
-    inline double getDistance(Coordinate) const;
-
+private:
+    double x;
+    double y;
+    double z;
 };
 
 

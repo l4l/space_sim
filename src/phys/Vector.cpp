@@ -9,9 +9,15 @@ phys::Vector::Vector(const Coordinate &coordinate) :
         end(coordinate) {}
 
 phys::Vector phys::Vector::operator+(const phys::Vector &vector) const {
-    return phys::Vector(this->end.getX() + vector.end.getX(),
-                        this->end.getY() + vector.end.getY(),
-                        this->end.getZ() + vector.end.getZ());
+    return phys::Vector(end.getX() + vector.end.getX(),
+                        end.getY() + vector.end.getY(),
+                        end.getZ() + vector.end.getZ());
+}
+
+phys::Vector phys::Vector::operator-(const phys::Vector &vector) const {
+    return phys::Vector(end.getX() - vector.end.getX(),
+                        end.getY() - vector.end.getY(),
+                        end.getZ() - vector.end.getZ());
 }
 
 phys::Vector phys::Vector::operator*(double size) const {

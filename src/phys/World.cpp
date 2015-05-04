@@ -18,11 +18,9 @@ void World::tick() {
             if (j == i)
                 continue;
 
-            Coordinate coord = objects[j].getCoord();
-            coord.invert();
-            phys::Vector v = vec + phys::Vector(coord);
-            v.normalize();
+            phys::Vector v = vec - phys::Vector(objects[j].getCoord());
             double l = v.length();
+            v.normalize();
 
             //F=ma, F=GmM/R^2 => a=GM/R^2
             v = v * (GRAV_CONST * b.getMass()/SQR(l));
@@ -39,6 +37,14 @@ void World::tick() {
     }
 }
 
+void World::addBody(phys::Body body, Coordinate coord) {
+    addBody(World::Object(body, coord));
+}
+
+void World::addBody(World::Object obj) {
+    objects.push_back(obj);
+}
+
 void World::Object::move(phys::Vector vector) {
     move(vector.getEnd().getX(),
          vector.getEnd().getY(),
@@ -53,5 +59,5 @@ World::Object::Object(phys::Body b, const Coordinate &c) :
         body(b), coord(c) {}
 
 double World::Object::getDistance(World::Object object) const {
-    return this->coord.getDistance(object.coord);
+    return coord.getDistance(object.coord);
 }
