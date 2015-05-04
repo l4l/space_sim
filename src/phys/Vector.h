@@ -9,17 +9,12 @@ namespace phys
 class Vector {
 public:
     Vector();
-
     Vector(double, double, double);
-
     Vector(const Coordinate&);
 
     Vector operator+(const Vector&) const;
-
     Vector operator-(const Vector&) const;
-
     Vector operator*(double) const;
-
     Vector operator/(double) const;
 
     void normalize();

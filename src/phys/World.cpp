@@ -1,7 +1,6 @@
 #include "World.h"
 
 World::World(double dt) : dt(dt) {}
-
 World::~World() { objects.clear(); }
 
 void World::tick() {
@@ -31,8 +30,8 @@ void World::tick() {
 
     for (int i = 0; i < objects.size(); ++i) {
         phys::Body b = objects[i].getBody();
-        phys::Vector vector = b.updateSpeed(dt) * dt;
-        objects[i].move(vector);
+        phys::Vector ds = b.updateSpeed(dt) * dt;
+        objects[i].move(ds);
         b.increaseAcceleration(phi[i]);
     }
 }
@@ -45,10 +44,10 @@ void World::addBody(World::Object obj) {
     objects.push_back(obj);
 }
 
-void World::Object::move(phys::Vector vector) {
-    move(vector.getEnd().getX(),
-         vector.getEnd().getY(),
-         vector.getEnd().getZ());
+void World::Object::move(phys::Vector ds) {
+    move(ds.getEnd().getX(),
+         ds.getEnd().getY(),
+         ds.getEnd().getZ());
 }
 
 void World::Object::move(double dx, double dy, double dz) {

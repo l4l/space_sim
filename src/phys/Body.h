@@ -10,24 +10,12 @@ namespace phys
 
 class Body {
 
-private:
-
-    const std::string name;
-
-    phys::Vector speed;
-
-    phys::Vector acceleration;
-
-    double mass;
-
 public:
-
     const phys::Vector updateSpeed(double);
 
     void increaseAcceleration(phys::Vector);
 
     Body(const std::string, const phys::Vector, const double);
-
     Body(const std::string, const phys::Vector,
            const phys::Vector, const double);
 
@@ -38,6 +26,15 @@ public:
     double getMass() const {
         return mass;
     }
+
+private:
+    const std::string name;
+
+    phys::Vector speed;
+
+    phys::Vector acc;
+
+    double mass;
 };
 
 }

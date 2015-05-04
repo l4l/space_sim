@@ -16,9 +16,8 @@ public:
     void tick();
 
     void addBody(const World::Object);
-
     void addBody(const phys::Body, const Coordinate);
-    
+
 private:
     std::vector<Object> objects;
     double dt;
@@ -29,6 +28,11 @@ public:
     public:
         Object(phys::Body b, const Coordinate &c);
 
+        double getDistance(Object) const;
+
+        void move(phys::Vector);
+        void move(double, double, double);
+
         const phys::Body getBody() const {
             return body;
         }
@@ -36,12 +40,6 @@ public:
         const Coordinate getCoord() const {
             return coord;
         }
-
-        double getDistance(Object) const;
-
-        void move(phys::Vector);
-
-        void move(double, double, double);
 
     private:
         phys::Body body;
