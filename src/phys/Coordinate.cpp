@@ -18,12 +18,6 @@ void Coordinate::move(double dx, double dy, double dz) {
     z += dz;
 }
 
-void Coordinate::invert() {
-    x *= -1;
-    y *= -1;
-    z *= -1;
-}
-
 inline static double distance(const double x0, const double y0,  const double z0,
                               const double x1, const double y1, const double z1) {
     return sqrt(SQR(x0-x1) + SQR(y0-y1) + SQR(z0-z1));
