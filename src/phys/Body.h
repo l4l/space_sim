@@ -17,7 +17,10 @@ public:
 
     Body(const std::string, const phys::Vector, const double);
     Body(const std::string, const phys::Vector,
-           const phys::Vector, const double);
+         const phys::Vector, const double);
+    Body(const Body&);
+
+    Body operator=(Body);
 
     const std::string getName() const {
         return name;
@@ -25,6 +28,14 @@ public:
 
     double getMass() const {
         return mass;
+    }
+
+    const Vector &getSpeed() const {
+        return speed;
+    }
+
+    const Vector &getAcc() const {
+        return acc;
     }
 
 private:

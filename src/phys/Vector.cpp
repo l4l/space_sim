@@ -32,6 +32,10 @@ phys::Vector phys::Vector::operator/(double size) const {
                         end.getZ()/size);
 }
 
+phys::Vector phys::Vector::operator=(phys::Vector vector) {
+    return phys::Vector(vector);
+}
+
 void phys::Vector::normalize() {
     *this = *this/length();
 }

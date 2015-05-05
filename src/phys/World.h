@@ -18,6 +18,14 @@ public:
     void addBody(const World::Object);
     void addBody(const phys::Body, const Coordinate);
 
+    const std::vector<Object> &getObjects() const {
+        return objects;
+    }
+
+    double getDt() const {
+        return dt;
+    }
+
 private:
     std::vector<Object> objects;
     double dt;
