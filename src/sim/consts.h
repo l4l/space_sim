@@ -2,5 +2,9 @@
 #define SPACESIM_CONSTS_H
 
 #define DEF_TIME 1
-#define DEBUG
+
+#ifndef DEBUG
+#define DEBUG 1
+#endif
+
 #endif //SPACESIM_CONSTS_H
