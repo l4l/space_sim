@@ -1,0 +1,6 @@
+#ifndef SPACESIM_CONSTS_H
+#define SPACESIM_CONSTS_H
+
+#define DEF_TIME 1
+#define DEBUG
+#endif //SPACESIM_CONSTS_H
