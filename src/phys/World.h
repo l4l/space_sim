@@ -37,6 +37,7 @@ public:
     class Object {
 
     public:
+        Object() {}
         Object(phys::Body b, const Coordinate &c);
 
         double getDistance(Object) const;
