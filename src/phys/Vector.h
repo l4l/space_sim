@@ -16,6 +16,7 @@ public:
     Vector operator-(const Vector&) const;
     Vector operator*(double) const;
     Vector operator/(double) const;
+    Vector operator=(Vector);
 
     void normalize();
 
