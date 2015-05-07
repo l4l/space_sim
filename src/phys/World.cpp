@@ -5,7 +5,7 @@ World::~World() { objects.clear(); }
 
 void World::tick() {
 
-    phys::Vector phi[objects.size()];
+    phys::Vector acc[objects.size()];
 
     for (int i = 0; i < objects.size(); ++i) {
 
@@ -24,15 +24,14 @@ void World::tick() {
             //F=ma, F=GmM/R^2 => a=GM/R^2
             v = v * (GRAV_CONST * b.getMass()/SQR(l));
 
-            phi[j] = phi[j] + v;
+            acc[j] = acc[j] + v;
         }
     }
 
     for (int i = 0; i < objects.size(); ++i) {
         phys::Body b = objects[i].getBody();
-        phys::Vector ds = b.updateSpeed(dt) * dt;
+        phys::Vector ds = (b.updateSpeed(acc[i]*dt) + b.getSpeed())/2 * dt;
         objects[i].move(ds);
-        b.increaseAcceleration(phi[i]);
     }
 }
 
@@ -44,6 +43,20 @@ void World::addBody(World::Object obj) {
     objects.push_back(obj);
 }
 
+void World::removeBody(int id) {
+    objects.erase(objects.begin() + id);
+}
+
+void World::removeBody(std::string name) {
+    for (auto i = objects.begin(); i != objects.end(); ++i)
+        if (i->getBody().getName() == name)
+            objects.erase(i);
+
+}
+
+World::Object::Object(phys::Body b, const Coordinate &c) :
+        body(b), coord(c) {}
+
 void World::Object::move(phys::Vector ds) {
     move(ds.getEnd().getX(),
          ds.getEnd().getY(),
@@ -53,9 +66,6 @@ void World::Object::move(phys::Vector ds) {
 void World::Object::move(double dx, double dy, double dz) {
     coord.move(dx, dy, dz);
 }
-
-World::Object::Object(phys::Body b, const Coordinate &c) :
-        body(b), coord(c) {}
 
 double World::Object::getDistance(World::Object object) const {
     return coord.getDistance(object.coord);
