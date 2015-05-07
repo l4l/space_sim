@@ -31,6 +31,8 @@ double Coordinate::getDistance(const Coordinate coord) const {
     return distance(x, y, z, coord.x, coord.y, coord.z);
 }
 
-Coordinate Coordinate::operator=(Coordinate coordinate) {
-    return Coordinate(coordinate);
+void Coordinate::operator=(Coordinate coordinate) {
+    x = coordinate.x;
+    y = coordinate.y;
+    z = coordinate.z;
 }

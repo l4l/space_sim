@@ -10,7 +10,7 @@ public:
     Coordinate(const Coordinate&);
     Coordinate(double, double, double);
 
-    Coordinate operator=(Coordinate);
+    void operator=(Coordinate);
 
     void move(double, double, double);
 
