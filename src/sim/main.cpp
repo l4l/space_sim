@@ -14,8 +14,8 @@ int main(int argc, char const *argv[]) {
     bool isBIn = false;
     bool isOut = false;
 
-    std::ifstream in;
-    std::ofstream out;
+    std::ifstream in; in.setf(std::ios::scientific); std::cin.setf(std::ios::scientific);
+    std::ofstream out; out.setf(std::ios::scientific); std::cout.setf(std::ios::scientific);
 
     if (argc > 1) {
         for (int i = 1; i < argc; ++i) {
@@ -45,10 +45,9 @@ int main(int argc, char const *argv[]) {
         }
     }
 
-    World world(0);
-    if (isBIn) {
+    World world(DEF_TIME);
+    if (isBIn)
         in>>world;
-    }
 
     if (!isGui)
         looper((isIn ? in : std::cin),
@@ -61,26 +60,74 @@ int main(int argc, char const *argv[]) {
 }
 
 void looper(std::istream &in, std::ostream &out, World world) {
-    World *w;
-    if (&world == 0)
-        w = new World(DEF_TIME);
-    else
-        w = new World(world);
 
     std::string ln;
 
+_loop:
     while (!in.eof()) {
         in>>ln;
-        if (ln == "h" || ln == "help") {
-            out<<help();
-            out<<std::endl;
-        } else if (ln == "p"){
-            out<<print(world);
-            out<<std::endl;
-        } else if (ln == "t") {
-            w->tick();
-        }
+        char first = ln[0];
+        if (first == 'h' || ln == "help") {
+            out<<help()<<std::endl;
+        } else if (first == 'p'){
+            out<<print(world)<<std::endl;
+        } else if (first == 't') {
+            ulong time = 1;
+            if (ln.size() != 1)
+                time = std::stoul(ln.substr(1, ln.size()-1));
+            while (time-- > 0)
+                world.tick();
+        } else if (first == 'i') {
+            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            if (num < world.getObjects().size() && num >= 0)
+                out<<print(world.getObjects().at(num));
+        } else if (first == 'n') {
+            std::string name = ln.substr(1, ln.size()-1);
+            auto obj = world.getObjects();
+            for (int i = 0; i < obj.size(); ++i) {
+                if (obj[i].getBody().getName() == name) {
+                    out<<"ID: "<<i<<std::endl;
+                    goto _loop; //None of us are perfect
+                }
+            }
+        } else if (first == 'a') {
+            std::string name;
+            phys::Vector speed;
+            double mass;
+            Coordinate coordinate;
+
+            out<<"Enter name: ";
+            in>>name;
+
+            out<<"Enter vector speed: ";
+            in>>speed;
+
+            out<<"Enter object mass: ";
+            in>>mass;
+
+            out<<"Enter coordinate of object: ";
+            in>>coordinate;
+
+            world.addBody(phys::Body(name, speed, mass), coordinate);
+
+        } else if (first == 's') {
+            std::string name;
+            phys::Vector speed;
+            double mass;
+            Coordinate coordinate;
+
+            in>>name;
+            in>>speed;
+            in>>mass;
+            in>>coordinate;
+
+            world.addBody(phys::Body(name, speed, mass), coordinate);
+        } else if (first == 'd') {
+            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            if (num < world.getObjects().size() && num >= 0)
+                world.removeBody(num);
+        } else if (first == 'q' || ln == "quit")
+            return;
     }
 
-    delete w;
 }

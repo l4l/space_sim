@@ -26,7 +26,7 @@ std::istream &operator>>(std::istream &in, phys::Vector &vector) {
 }
 
 std::ostream &operator<<(std::ostream &out, phys::Body &body) {
-    return out<<body.getName()<<body.getMass()<<&body.getSpeed()<<&body.getAcc();
+    return out<<body.getName()<<body.getMass()<<&body.getSpeed();
 }
 
 std::istream &operator>>(std::istream &in, phys::Body &body) {
@@ -34,7 +34,7 @@ std::istream &operator>>(std::istream &in, phys::Body &body) {
     double mass;
     phys::Vector speed, acc;
     in>>name>>mass>>speed>>acc;
-    body = phys::Body(name, speed, acc, mass);
+    body = phys::Body(name, speed, mass);
     return in;
 }
 
