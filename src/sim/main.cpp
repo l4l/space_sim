@@ -90,38 +90,22 @@ _loop:
                     goto _loop; //None of us are perfect
                 }
             }
-        } else if (first == 'a') {
+        } else if (first == 'a' | first == 's') {
             std::string name;
             phys::Vector speed;
             double mass;
             Coordinate coordinate;
 
-            out<<"Enter name: ";
+            if (first == 'a') out<<"Enter name: ";
             in>>name;
-
-            out<<"Enter vector speed: ";
+            if (first == 'a') out<<"Enter vector speed: ";
             in>>speed;
-
-            out<<"Enter object mass: ";
+            if (first == 'a') out<<"Enter object mass: ";
             in>>mass;
-
-            out<<"Enter coordinate of object: ";
+            if (first == 'a') out<<"Enter coordinate of object: ";
             in>>coordinate;
-
             world.addBody(phys::Body(name, speed, mass), coordinate);
 
-        } else if (first == 's') {
-            std::string name;
-            phys::Vector speed;
-            double mass;
-            Coordinate coordinate;
-
-            in>>name;
-            in>>speed;
-            in>>mass;
-            in>>coordinate;
-
-            world.addBody(phys::Body(name, speed, mass), coordinate);
         } else if (first == 'd') {
             ulong num = std::stoul(ln.substr(1, ln.size()-1));
             if (num < world.getObjects().size() && num >= 0)

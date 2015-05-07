@@ -9,13 +9,14 @@ std::ostream &operator<<(std::ostream &out, const Coordinate &coordinate) {
 std::istream &operator>>(std::istream &in, Coordinate &coordinate) {
     double x, y, z;
     in>>x>>y>>z;
-    coordinate = Coordinate(x, y, z);
+    Coordinate *c = &coordinate;
+    *c = Coordinate(x, y, z);
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, phys::Vector &vector) {
+std::ostream &operator<<(std::ostream &out, const phys::Vector &vector) {
     Coordinate coord(vector.getEnd());
-    return out<<&coord;
+    return out<<coord;
 }
 
 std::istream &operator>>(std::istream &in, phys::Vector &vector) {
@@ -25,7 +26,7 @@ std::istream &operator>>(std::istream &in, phys::Vector &vector) {
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, phys::Body &body) {
+std::ostream &operator<<(std::ostream &out, const phys::Body &body) {
     return out<<body.getName()<<body.getMass()<<&body.getSpeed();
 }
 
@@ -38,39 +39,38 @@ std::istream &operator>>(std::istream &in, phys::Body &body) {
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, World::Object &object) {
+std::ostream &operator<<(std::ostream &out, const World::Object &object) {
     phys::Body body(object.getBody());
-    Coordinate coord(object.getCoord());
-    return out<<body<<&coord;
+    return out<<body<<Coordinate(object.getCoord());
 }
 
 std::istream &operator>>(std::istream &in, World::Object &object) {
-    phys::Body *body;
+    phys::Body body;
     Coordinate coord;
-    in>>*body>>coord;
-    object = World::Object(*body, coord);
+    in>>body>>coord;
+    object = World::Object(body, coord);
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, World &world) {
+std::ostream &operator<<(std::ostream &out, const World &world) {
     out<<world.getDt();
     out<<world.getObjects().size();
     const std::vector<World::Object> objects = world.getObjects();
     for (auto i = 0; i < objects.size(); ++i)
-        out<<&objects[i];
+        out<<objects[i];
     return out;
 }
 
 std::istream &operator>>(std::istream &in, World &world) {
     double dt;
     ulong size;
-    World::Object *object;
+    World::Object object;
     in>>dt>>size;
 
     world = World(dt);
     for (int i = 0; i < size; ++i) {
-        in>>*object;
-        world.addBody(*object);
+        in>>object;
+        world.addBody(object);
     }
     return in;
 }
