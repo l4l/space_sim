@@ -11,6 +11,7 @@ namespace phys
 class Body {
 
 public:
+    Body() {}
     Body(const std::string, const phys::Vector, const double);
     Body(const Body&);
 

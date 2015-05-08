@@ -3,6 +3,8 @@ project(SpaceSim)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+set(CMAKE_CXX_FLAGS_RELEASE "-DDEBUG=0")
+
 set(BASE "${CMAKE_SOURCE_DIR}/src")
 set(PHYS_DIR ${BASE}/phys)
 set(APP_DIR ${BASE}/sim)
