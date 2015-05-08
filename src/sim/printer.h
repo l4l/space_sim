@@ -6,10 +6,10 @@
 
 std::string help();
 
-std::string print(const Coordinate&);
-std::string print(const phys::Vector&);
-std::string print(const phys::Body&);
-std::string print(const World::Object&);
-std::string print(const World&);
+std::string print(Coordinate&);
+std::string print(phys::Vector&);
+std::string print(phys::Body&);
+std::string print(World::Object&);
+std::string print(World&);
 
 #endif //SPACESIM_PRINTER_H

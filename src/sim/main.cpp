@@ -1,3 +1,4 @@
+#include <GUI.h>
 #include "serializator.h"
 #include "consts.h"
 #include "printer.h"
@@ -7,7 +8,7 @@
 
 void looper(std::istream&, std::ostream&, World);
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 
     bool isGui = false;
     bool isIn = false;
@@ -23,13 +24,13 @@ int main(int argc, char const *argv[]) {
             if (DEBUG) std::cout<<'\t'<<s<<std::endl;
 
             if (!isGui &&
-                    (s == "-gui" ||
-                     s == "-g"))
+                (s == "-gui" ||
+                 s == "-g"))
                 isGui = true;
             else if (isGui &&
-                    (s == "-c" ||
-                     s == "--console" ||
-                     s == "-console"))
+                     (s == "-c" ||
+                      s == "--console" ||
+                      s == "-console"))
                 isGui = false;
 
             if (s.find("-i", 0) == 0 && !isIn && !isBIn) {
@@ -54,16 +55,17 @@ int main(int argc, char const *argv[]) {
                (isOut ? out: std::cout),
                world);
     else {
-        //Create window and so on..
+        sdlm::GUI gui(10) ;
+        gui(&world);
     }
     return 0;
 }
 
 void looper(std::istream &in, std::ostream &out, World world) {
 
-    std::string ln;
+ /*   std::string ln;
 
-_loop:
+    _loop:
     while (!in.eof()) {
         in>>ln;
         char first = ln[0];
@@ -72,13 +74,13 @@ _loop:
         } else if (first == 'p'){
             out<<print(world)<<std::endl;
         } else if (first == 't') {
-            ulong time = 1;
+            long time = 1;
             if (ln.size() != 1)
                 time = std::stoul(ln.substr(1, ln.size()-1));
             while (time-- > 0)
                 world.tick();
         } else if (first == 'i') {
-            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            long num = std::stoul(ln.substr(1, ln.size()-1));
             if (num < world.getObjects().size() && num >= 0)
                 out<<print(world.getObjects().at(num));
         } else if (first == 'n') {
@@ -107,11 +109,11 @@ _loop:
             world.addBody(phys::Body(name, speed, mass), coordinate);
 
         } else if (first == 'd') {
-            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            long num = std::stoul(ln.substr(1, ln.size()-1));
             if (num < world.getObjects().size() && num >= 0)
                 world.removeBody(num);
         } else if (first == 'q' || ln == "quit")
             return;
-    }
+    }*/
 
 }
