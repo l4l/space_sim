@@ -10,10 +10,10 @@ void sdlm::GUI::event(SDL_Event *ev) {
     if (ev->type == SDL_KEYDOWN){
         switch (ev->key.keysym.sym){
             case SDLK_UP:
-                delay!=0 ? (delay--) : (delay++);
+                delay!=0 ? (delay-=100) : (delay+=100);
                 break;
             case SDLK_RIGHT:
-                delay!=0 ? (delay--) : (delay++);
+                delay!=0 ? (delay-=100) : (delay+=100);
                 break;
             case SDLK_DOWN:
                 delay++;

@@ -10,7 +10,7 @@ void looper(std::istream&, std::ostream&, World);
 
 int main(int argc, char *argv[]) {
 
-    bool isGui = false;
+    bool isGui = true;
     bool isIn = false;
     bool isBIn = false;
     bool isOut = false;
@@ -46,26 +46,32 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    World world(DEF_TIME);
+    World world(1);
     if (isBIn)
         in>>world;
 
-    if (!isGui)
-        looper((isIn ? in : std::cin),
-               (isOut ? out: std::cout),
-               world);
-    else {
-        sdlm::GUI gui(10) ;
-        gui(&world);
+    // Test
+    const phys::Vector v(1,1,1), v2(2,1,1), v3(2,2,3);
+    const Coordinate c(100,100,100), c2(10,10,10), c3(200,220,210);
+    world.addBody(phys::Body("Planet111", v, 10e+11), c);
+    world.addBody(phys::Body("Planet333", v3, 10e+11), c3);
+    world.addBody(phys::Body("Planet222", v2, 10e+11), c2);
+
+    //looper((isIn ? in : std::cin),
+          // (isOut ? out : std::cout),
+          // world);
+    if (isGui) {
+        sdlm::GUI gui(10);
+        gui(world);
     }
     return 0;
 }
 
 void looper(std::istream &in, std::ostream &out, World world) {
 
- /*   std::string ln;
+    std::string ln;
 
-    _loop:
+_loop:
     while (!in.eof()) {
         in>>ln;
         char first = ln[0];
@@ -74,7 +80,7 @@ void looper(std::istream &in, std::ostream &out, World world) {
         } else if (first == 'p'){
             out<<print(world)<<std::endl;
         } else if (first == 't') {
-            long time = 1;
+            unsigned long time = 1;
             if (ln.size() != 1)
                 time = std::stoul(ln.substr(1, ln.size()-1));
             while (time-- > 0)
@@ -114,6 +120,6 @@ void looper(std::istream &in, std::ostream &out, World world) {
                 world.removeBody(num);
         } else if (first == 'q' || ln == "quit")
             return;
-    }*/
+    }
 
 }

@@ -14,20 +14,20 @@ std::string help() {
                                "so make sure that you call correct id");
 }
 
-std::string print(Coordinate &coordinate) {
+std::string print(const Coordinate &coordinate) {
     if (DEBUG) std::cout<<"\n\tNow at print(Coordinate&)\n";
     return std::string("X: ").append(std::to_string(coordinate.getX()))
                        .append(", Y: ").append(std::to_string(coordinate.getY()))
                        .append(", Z: ").append(std::to_string(coordinate.getZ())).append("\n");
 }
 
-std::string print(phys::Vector &vector) {
+std::string print(const phys::Vector &vector) {
     if (DEBUG) std::cout<<"\n\tNow at print(phys::Vector&)\n";
     auto c = vector.getEnd();
     return print(c);
 }
 
-std::string print(phys::Body &body) {
+std::string print(const phys::Body &body) {
     if (DEBUG) std::cout<<"\n\tNow at print(phys::Body&)\n";
     auto s = body.getSpeed();
    //auto a = body.getAcc();
@@ -36,7 +36,7 @@ std::string print(phys::Body &body) {
             .append("Speed: ").append(print(s)).append("\n");
 }
 
-std::string print(World::Object &object) {
+std::string print(const World::Object &object) {
     if (DEBUG) std::cout<<"\n\tNow at print(World::Object&)\n";
     auto b = object.getBody();
     auto c = object.getCoord();
@@ -44,7 +44,7 @@ std::string print(World::Object &object) {
             .append("Coords: ").append(print(c));
 }
 
-std::string print(World &world) {
+std::string print(const World &world) {
     if (DEBUG) std::cout<<"\n\tNow at print(World&)\n";
     std::string s("*** World description\n\n");
     s.append("dt = ").append(std::to_string(world.getDt())).append("\n");

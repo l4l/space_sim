@@ -41,6 +41,7 @@ public:
         Object(phys::Body b, const Coordinate &c);
 
         double getDistance(Object) const;
+        const phys::Vector updateSpeed(phys::Vector);
 
         void move(phys::Vector);
         void move(double, double, double);
@@ -52,6 +53,7 @@ public:
         const Coordinate getCoord() const {
             return coord;
         }
+
 
     private:
         phys::Body body;

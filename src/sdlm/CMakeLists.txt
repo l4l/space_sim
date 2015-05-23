@@ -5,7 +5,7 @@ include_directories(${SimPhycics_SOURCE_DIR})
 
 set(SRC_SDLM initSDL.cpp renderer.cpp
      GUI.cpp GUI.h event.cpp loop.cpp
-      texHandl.cpp texHandl.h getResourcePath.cpp
+      handle.cpp handle.h getResourcePath.cpp
       cleanUp.h cleanUp.cpp )
 
 

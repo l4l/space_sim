@@ -1,29 +1,29 @@
 #include "GUI.h"
 
-sdlm::GUI::GUI():delay(0), screen(NULL),
-                 render(NULL), running(initSDL()){}
+sdlm::GUI::GUI() : delay(0), screen(nullptr), running(initSDL()) {}
 
-sdlm::GUI::GUI(int dt):delay(dt), screen(NULL),
-                        render(NULL), running(initSDL()) {}
+sdlm::GUI::GUI(unsigned int dt) : delay(dt), screen(nullptr), running(initSDL()) {}
 
-int sdlm::GUI::operator()(World* w) {
+int sdlm::GUI::operator()(World w) {
     SDL_Event ev;
-    const std::vector<World::Object> objects = w->getObjects();
+    std::vector<World::Object> objects;
     while(running) {
+        objects = w.getObjects();
 
-        while(SDL_WaitEvent(&ev)) {
+        while(SDL_PollEvent(&ev)) {
             event(&ev);
         }
 
-        for(auto n : objects){
-            prepare(n.getBody().getName(), n.getCoord().getX(), n.getCoord().getY());
+        for(World::Object o: objects){
+            prepare(o.getBody().getName(),
+                    o.getCoord().getX(),
+                    o.getCoord().getY());
         }
 
         renderer();
-        w->tick();
+        SDL_Delay(delay);
+        w.tick();
     }
-
-    cleanup(render);
 
     return 0;
 }
