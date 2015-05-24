@@ -31,7 +31,7 @@ int sdlm::GUI::operator()(World *w) {
 
 void sdlm::GUI::initTexture() {
     SDL_Surface *loadedImage;
-    loadedImage = SDL_LoadBMP("C:\\Users\\ono\\Desktop\\space_sim\\src\\items\\planet.bmp");
+    loadedImage = SDL_LoadBMP("planet.bmp");
     if (loadedImage != nullptr){
         tex = SDL_CreateTextureFromSurface(render, loadedImage);
         SDL_FreeSurface(loadedImage);
@@ -44,7 +44,7 @@ void sdlm::GUI::initTexture() {
 }
 
 void sdlm::GUI::prepare(std::string const name, double x, double y) {
-    dst.x = (int)x;
-    dst.y = (int)y;
+    dst.x = (int)x - dst.w/2;
+    dst.y = (int)y - dst.h/2;
     SDL_RenderCopy(render, tex, nullptr, &dst);
 }

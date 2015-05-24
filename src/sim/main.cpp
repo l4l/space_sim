@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 
     // Test
     const phys::Vector v(1,1,1), v2(2,1,1), v3(2,2,3);
-    const Coordinate c(100,100,100), c2(10,10,10), c3(200,220,210);
+    const Coordinate c(100,100,100), c2(0,0,0), c3(200,220,210);
     world.addBody(phys::Body("Planet111", v, 10e+11), c);
     world.addBody(phys::Body("Planet333", v3, 10e+11), c3);
     world.addBody(phys::Body("Planet222", v2, 10e+11), c2);
