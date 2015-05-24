@@ -23,5 +23,3 @@ template<>
 void cleanup(SDL_Surface *surf);
 
 #endif
-
-

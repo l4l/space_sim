@@ -9,12 +9,10 @@ void World::tick() {
     phys::Vector acc[objects.size()];
 
     for (int i = 0; i < objects.size(); ++i) {
-
         phys::Body b = objects[i].getBody();
         const phys::Vector vec = phys::Vector(objects[i].getCoord());
 
         for (int j = 0; j < objects.size(); ++j) {
-
             if (j == i)
                 continue;
 

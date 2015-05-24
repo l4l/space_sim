@@ -12,23 +12,28 @@ namespace sdlm {
     class GUI {
     private:
         bool         running;
-        unsigned int delay;
+        unsigned int   delay;
+
         SDL_Renderer* render;
         SDL_Window*   screen;
+        SDL_Texture*     tex;
+        SDL_Rect         dst;
+
+        World*         world;
 
     public:
         GUI();
         GUI(unsigned int);
 
         bool initSDL();
-
-        void event(SDL_Event*);
+        void initTexture();
+        void prepare(std::string const, double, double);
 
         void loop();
-        int operator()(World);
+        void event(SDL_Event*);
+        int operator()(World*);
 
         static std::string getResourcePath(const std::string &);
-        int prepare(std::string, double, double);
         int renderer();
 
     };

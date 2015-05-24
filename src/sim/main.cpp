@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    World world(1);
+    World world(0.5);
     if (isBIn)
         in>>world;
 
@@ -61,8 +61,8 @@ int main(int argc, char *argv[]) {
           // (isOut ? out : std::cout),
           // world);
     if (isGui) {
-        sdlm::GUI gui(10);
-        gui(world);
+        sdlm::GUI gui(0);
+        gui(&world);
     }
     return 0;
 }
