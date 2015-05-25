@@ -1,3 +1,4 @@
+#include <iostream>
 #include "World.h"
 
 World::World(double dt) : dt(dt) {}
@@ -8,12 +9,10 @@ void World::tick() {
     phys::Vector acc[objects.size()];
 
     for (int i = 0; i < objects.size(); ++i) {
-
         phys::Body b = objects[i].getBody();
         const phys::Vector vec = phys::Vector(objects[i].getCoord());
 
         for (int j = 0; j < objects.size(); ++j) {
-
             if (j == i)
                 continue;
 
@@ -21,7 +20,7 @@ void World::tick() {
             double l = v.length();
             v.normalize();
 
-            //F=ma, F=GmM/R^2 => a=GM/R^2
+
             v = v * (GRAV_CONST * b.getMass()/SQR(l));
 
             acc[j] = acc[j] + v;
@@ -30,7 +29,7 @@ void World::tick() {
 
     for (int i = 0; i < objects.size(); ++i) {
         phys::Body b = objects[i].getBody();
-        phys::Vector ds = (b.updateSpeed(acc[i]*dt) + b.getSpeed())/2 * dt;
+        phys::Vector ds = (objects[i].updateSpeed(acc[i]*dt) + b.getSpeed())/2 * dt;
         objects[i].move(ds);
     }
 }
@@ -69,4 +68,8 @@ void World::Object::move(double dx, double dy, double dz) {
 
 double World::Object::getDistance(World::Object object) const {
     return coord.getDistance(object.coord);
+}
+
+const phys::Vector World::Object::updateSpeed(phys::Vector v){
+    return  body.updateSpeed(v);
 }

@@ -1,3 +1,4 @@
+#include <GUI.h>
 #include "serializator.h"
 #include "consts.h"
 #include "printer.h"
@@ -7,9 +8,9 @@
 
 void looper(std::istream&, std::ostream&, World);
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 
-    bool isGui = false;
+    bool isGui = true;
     bool isIn = false;
     bool isBIn = false;
     bool isOut = false;
@@ -23,13 +24,13 @@ int main(int argc, char const *argv[]) {
             if (DEBUG) std::cout<<'\t'<<s<<std::endl;
 
             if (!isGui &&
-                    (s == "-gui" ||
-                     s == "-g"))
+                (s == "-gui" ||
+                 s == "-g"))
                 isGui = true;
             else if (isGui &&
-                    (s == "-c" ||
-                     s == "--console" ||
-                     s == "-console"))
+                     (s == "-c" ||
+                      s == "--console" ||
+                      s == "-console"))
                 isGui = false;
 
             if (s.find("-i", 0) == 0 && !isIn && !isBIn) {
@@ -45,16 +46,24 @@ int main(int argc, char const *argv[]) {
         }
     }
 
-    World world(DEF_TIME);
+    World world(0.3);
     if (isBIn)
         in>>world;
 
-    if (!isGui)
-        looper((isIn ? in : std::cin),
-               (isOut ? out: std::cout),
-               world);
-    else {
-        //Create window and so on..
+    // Test
+    const phys::Vector v1(0,0,0), v2(0,0,0);
+    const Coordinate c1(500,500,0), c2(450,450,0);
+    world.addBody(phys::Body("Planet111", v1, 10e+11), c1);
+    world.addBody(phys::Body("Planet222", v2, 10e+11), c2);
+ //   world.addBody(phys::Body("Planet333", v3, 10e+11), c3);
+
+
+    //looper((isIn ? in : std::cin),
+          // (isOut ? out : std::cout),
+          // world);
+    if (isGui) {
+        sdlm::GUI gui(0);
+        gui(&world);
     }
     return 0;
 }
@@ -72,13 +81,13 @@ _loop:
         } else if (first == 'p'){
             out<<print(world)<<std::endl;
         } else if (first == 't') {
-            ulong time = 1;
+            unsigned long time = 1;
             if (ln.size() != 1)
                 time = std::stoul(ln.substr(1, ln.size()-1));
             while (time-- > 0)
                 world.tick();
         } else if (first == 'i') {
-            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            long num = std::stoul(ln.substr(1, ln.size()-1));
             if (num < world.getObjects().size() && num >= 0)
                 out<<print(world.getObjects().at(num));
         } else if (first == 'n') {
@@ -107,7 +116,7 @@ _loop:
             world.addBody(phys::Body(name, speed, mass), coordinate);
 
         } else if (first == 'd') {
-            ulong num = std::stoul(ln.substr(1, ln.size()-1));
+            long num = std::stoul(ln.substr(1, ln.size()-1));
             if (num < world.getObjects().size() && num >= 0)
                 world.removeBody(num);
         } else if (first == 'q' || ln == "quit")

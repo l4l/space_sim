@@ -33,9 +33,7 @@ public:
 
 private:
     const std::string name;
-
     phys::Vector speed;
-
     double mass;
 };
 
