@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(SimGUI)
 
 include_directories(${SimPhycics_SOURCE_DIR})
+include_directories(${APP_DIR})
 
 set(SRC_SDLM initSDL.cpp renderer.cpp
      GUI.cpp GUI.h event.cpp loop.cpp

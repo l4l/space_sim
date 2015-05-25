@@ -1,7 +1,11 @@
 #ifndef _SURFACEM_H_
 #define _SURFACEM_H_
 
-#include "GUI.h"
+
+#include <SDL.h>
+#include "World.h"
+#include "serializator.h"
+#include "fstream"
 
 namespace sdlm {
     class handle {
@@ -9,7 +13,9 @@ namespace sdlm {
         handle();
 
     public:
-        static void logSDLError(std::ostream&, const std::string&);
+        void logSDLError(std::ostream&, const std::string&);
+        void loadFromFile(const char*, World*);
+        void clickCreator(World*);
     };
 }
 #endif

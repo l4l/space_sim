@@ -46,16 +46,17 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    World world(0.5);
+    World world(0.3);
     if (isBIn)
         in>>world;
 
     // Test
-    const phys::Vector v(1,1,1), v2(2,1,1), v3(2,2,3);
-    const Coordinate c(100,100,100), c2(0,0,0), c3(200,220,210);
-    world.addBody(phys::Body("Planet111", v, 10e+11), c);
-    world.addBody(phys::Body("Planet333", v3, 10e+11), c3);
+    const phys::Vector v1(0,0,0), v2(0,0,0);
+    const Coordinate c1(500,500,0), c2(450,450,0);
+    world.addBody(phys::Body("Planet111", v1, 10e+11), c1);
     world.addBody(phys::Body("Planet222", v2, 10e+11), c2);
+ //   world.addBody(phys::Body("Planet333", v3, 10e+11), c3);
+
 
     //looper((isIn ? in : std::cin),
           // (isOut ? out : std::cout),

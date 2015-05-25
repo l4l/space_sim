@@ -1,9 +1,16 @@
 #include "GUI.h"
 
-void sdlm::GUI::event(SDL_Event *ev) {
+void sdlm::GUI::eventListener(SDL_Event *ev, World *w) {
     if(ev->type == SDL_QUIT) {
         running = false;
     }
+
+    if(ev->type == SDL_DROPFILE){
+        droppedDir = ev->drop.file;
+        h->loadFromFile(droppedDir,w);
+        SDL_free(droppedDir);
+    }
+
     if (ev->type == SDL_KEYDOWN){
         switch (ev->key.keysym.sym){
             case SDLK_UP:
@@ -19,9 +26,7 @@ void sdlm::GUI::event(SDL_Event *ev) {
                 delay+=0.5;
                 break;
             case SDLK_ESCAPE:
-                SDL_SetWindowSize(screen, 640, 480);
-                running = false;
-               // delay-=100;
+                SDL_SetWindowFullscreen( screen, SDL_FALSE );
                 break;
             default:
                 running = false;
@@ -29,6 +34,6 @@ void sdlm::GUI::event(SDL_Event *ev) {
         //running = false;
     }
     if (ev->type == SDL_MOUSEBUTTONDOWN){
-        running = false;
+        h->clickCreator(w);
     }
 }
