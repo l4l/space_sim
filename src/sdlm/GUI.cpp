@@ -29,7 +29,7 @@ int sdlm::GUI::operator()(World *w) {
 
 void sdlm::GUI::initTexture() {
     SDL_Surface *loadedImage;
-    loadedImage = SDL_LoadBMP("C:\\Users\\ono\\Desktop\\space_sim\\src\\items\\planet.bmp");
+    loadedImage = SDL_LoadBMP("planet.bmp");
     if (loadedImage != nullptr){
         tex = SDL_CreateTextureFromSurface(render, loadedImage);
         SDL_FreeSurface(loadedImage);
