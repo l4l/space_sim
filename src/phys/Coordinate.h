@@ -10,6 +10,8 @@ public:
     Coordinate(const Coordinate&);
     Coordinate(double, double, double);
 
+    void operator=(Coordinate);
+
     void move(double, double, double);
 
     double getX() const { return x; }

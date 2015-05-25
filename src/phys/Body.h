@@ -11,13 +11,13 @@ namespace phys
 class Body {
 
 public:
-    const phys::Vector updateSpeed(double);
-
-    void increaseAcceleration(phys::Vector);
-
+    Body() {}
     Body(const std::string, const phys::Vector, const double);
-    Body(const std::string, const phys::Vector,
-           const phys::Vector, const double);
+    Body(const Body&);
+
+    Body operator=(Body);
+
+    const phys::Vector updateSpeed(phys::Vector);
 
     const std::string getName() const {
         return name;
@@ -27,13 +27,13 @@ public:
         return mass;
     }
 
+    const Vector &getSpeed() const {
+        return speed;
+    }
+
 private:
     const std::string name;
-
     phys::Vector speed;
-
-    phys::Vector acc;
-
     double mass;
 };
 
